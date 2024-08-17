@@ -1,10 +1,11 @@
+import 'package:e_commerce_training/items_page.dart';
 import 'package:e_commerce_training/widgets/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
+  const HomePage({super.key,});
+  
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -39,10 +40,10 @@ class _HomePageState extends State<HomePage> {
         currentIndex: currentIndex ,
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.orange,
-        items: [
-        BottomNavigationBarItem(icon: Icon(Icons.home_outlined) , label: "Home"),
-         BottomNavigationBarItem(icon: Icon(Icons.shopping_bag_outlined) , label: "Cart"),
-         BottomNavigationBarItem(icon: Icon(Icons.person_2_outlined) , label: "Profile"),
+        items: const [
+         BottomNavigationBarItem(icon: Icon(Icons.home_outlined , size: 40,) , label: "Home" ),
+         BottomNavigationBarItem(icon: Icon(Icons.shopping_bag_outlined, size: 40) , label: "Cart"),
+         BottomNavigationBarItem(icon: Icon(Icons.person_2_outlined, size: 40) , label: "Profile"),
       ]),
       body: Container(
         padding: const EdgeInsets.all(20),
@@ -138,32 +139,37 @@ class _HomePageState extends State<HomePage> {
                 crossAxisCount: 2, mainAxisExtent: 280,
                 ),
                 itemBuilder: (context, index) {
-                  return  Card(
-                    color: Colors.white,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          color: Colors.grey[200],
-                          width: 500,
-                          padding: const EdgeInsets.all(20),
-                          child: Image.asset(items[index]["image"] , height: 130 , fit: BoxFit.fill,) ,
-                        ),
-                        SizedBox(height: 5,),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 9),
-                          child: Text("${items[index]["itemName"]}" , style: Styles.boldtextStyle14,),
-                        ),
-                         Padding(
-                           padding: const EdgeInsets.symmetric(horizontal: 9),
-                           child: Text("${items[index]["subTitle"]}" , style: Styles.regulartextStyle14,),
-                         ),
-                         SizedBox(height: 5,),
+                  return  InkWell(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder:(context) => ItemsPage(data: items[index],),));
+                    },
+                    child: Card(
+                      color: Colors.white,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            color: Colors.grey[200],
+                            width: 500,
+                            padding: const EdgeInsets.all(20),
+                            child: Image.asset(items[index]["image"] , height: 130 , fit: BoxFit.fill,) ,
+                          ),
+                          SizedBox(height: 5,),
                           Padding(
-                           padding: const EdgeInsets.symmetric(horizontal: 9),
-                           child: Text("${items[index]["price"]}" , style: TextStyle(fontFamily: "Poppins" , color: Colors.orange , fontWeight: FontWeight.bold , fontSize: 18,),)
-                         ),
-                      ],
+                            padding: const EdgeInsets.symmetric(horizontal: 9),
+                            child: Text("${items[index]["itemName"]}" , style: Styles.boldtextStyle14,),
+                          ),
+                           Padding(
+                             padding: const EdgeInsets.symmetric(horizontal: 9),
+                             child: Text("${items[index]["subTitle"]}" , style: Styles.regulartextStyle14,),
+                           ),
+                           SizedBox(height: 5,),
+                            Padding(
+                             padding: const EdgeInsets.symmetric(horizontal: 9),
+                             child: Text("${items[index]["price"]}" , style: TextStyle(fontFamily: "Poppins" , color: Colors.orange , fontWeight: FontWeight.bold , fontSize: 18,),)
+                           ),
+                        ],
+                      ),
                     ),
                   );
                 },
